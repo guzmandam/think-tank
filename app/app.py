@@ -6,7 +6,7 @@ from streamlit_extras.chart_container import chart_container
 
 st.set_page_config(page_title="Panel del Paciente", layout="wide")
 
-st.title("Extracción de Datos de Pacientes")
+st.markdown(f"<h1 style='text-align: center;'>Extracción de Datos de Pacientes</h1>", unsafe_allow_html=True)
 
 # CSS personalizado para centrar la tabla
 st.markdown("""
@@ -18,7 +18,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("Suba los archivos PDF aquí")
+st.subheader("Suba los archivos PDF aquí")
 
 uploaded_files = st.file_uploader(
     "Elija un archivo PDF", 
