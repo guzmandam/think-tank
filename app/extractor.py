@@ -62,7 +62,7 @@ class PatientDataExtractor:
             self.diagnosis = pd.DataFrame(self.diagnosis)
 
     def generate_patient_info(self):
-        sleep(5) # Simulate a delay
+        sleep(2) # Simulate a delay
 
         # Generate patient information (fake)
         self.name = "Juan Pérez García"
