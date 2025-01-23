@@ -1,5 +1,7 @@
 # Import utility functions to avoid code duplication
-from utils import util_example
+from utils import (
+    generate_fake_signal_data
+)
 
 from enum import Enum
 from typing import Union, List, Dict
@@ -43,10 +45,11 @@ class PatientDataExtractor:
         self.discharge_date: str = "" # "YYYY-MM-DD"
         self.stay_days: int = 0
         self.base_final_diagnosis: str = ""
-        self.diagnosis: str = ""
         self.service: str = ""
 
         self.prescriptions: Union[pd.DataFrame, List[Dict]] = [] # List of dictionaries or DataFrame
+        self.diagnosis: Union[pd.DataFrame, List[Dict]] = [] # List of dictionaries or DataFrame
+        self.vital_signs: pd.DataFrame = pd.DataFrame()
     
     def convert_to_dataframe(self):
         """
@@ -54,6 +57,9 @@ class PatientDataExtractor:
         """
         if isinstance(self.prescriptions, list):
             self.prescriptions = pd.DataFrame(self.prescriptions)
+
+        if isinstance(self.diagnosis, list):
+            self.diagnosis = pd.DataFrame(self.diagnosis)
 
     def generate_patient_info(self):
         sleep(5) # Simulate a delay
@@ -110,6 +116,33 @@ class PatientDataExtractor:
                 "ajuste_dosis": "No aplica"
             }
         ]
+
+        self.diagnosis = [
+            {
+                "fecha": "2024-03-15",
+                "nombre": "Neumonía",
+                "descripcion": "Neumonía adquirida en la comunidad"
+            },
+            {
+                "fecha": "2024-03-15",
+                "nombre": "Faringitis",
+                "descripcion": "Faringitis aguda"
+            },
+            {
+                "fecha": "2024-03-15",
+                "nombre": "Rinitis",
+                "descripcion": "Rinitis alérgica"
+            },
+            {
+                "fecha": "2024-03-15",
+                "nombre": "Otitis",
+                "descripcion": "Otitis media"
+            }
+        ]
+
+        self.convert_to_dataframe()
+
+        self.vital_signs = generate_fake_signal_data()
 
     def extract(self):
         """
