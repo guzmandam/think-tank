@@ -44,7 +44,7 @@ if uploaded_files:
     with placeholder.container():
         st.title("Panel del Paciente")
 
-        tabs = st.tabs(["Información del Paciente", "Diagnóstico", "Prescripciones", "Signos Vitales"])
+        tabs = st.tabs(["Información del Paciente", "Diagnósticos", "Prescripciones", "Signos Vitales"])
 
         with tabs[0]:
             patient_info = PatientInfo(patient)

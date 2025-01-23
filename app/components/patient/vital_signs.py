@@ -1,3 +1,5 @@
+from utils import resample_data
+
 import streamlit as st
 from streamlit_extras.chart_container import chart_container
 from pandas import Timestamp as PandasTimestamp
@@ -11,7 +13,7 @@ class PatientVitalSigns:
         st.header("Signos Vitales")
 
         # Add date range filter
-        col1, col2 = st.columns(2)
+        col1, col2, col3 = st.columns([2,2,1])
         with col1:
             start_date = st.date_input(
                 "Fecha inicial",
@@ -27,6 +29,12 @@ class PatientVitalSigns:
                 max_value=self.vital_signs['Fecha'].max(),
                 value=self.vital_signs['Fecha'].max(),
                 key="end_date"  # Unique key for the widget
+            )
+        with col3:
+            time_scale = st.selectbox(
+                "Escala de tiempo",
+                options=['Dia', 'Semana', 'Mes'],
+                key="time_scale"
             )
 
         # Use session state to store filtered data
@@ -49,6 +57,7 @@ class PatientVitalSigns:
             st.session_state.prev_end_date = end_date
 
         filtered_data = st.session_state.filtered_data
+        filtered_data = resample_data(filtered_data, time_scale)
 
         st.markdown("""
             <style>
