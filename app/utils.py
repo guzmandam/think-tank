@@ -4,7 +4,7 @@ import numpy as np
 def util_example():
     return "This is a utility function"
 
-def generate_fake_signal_data(days=90):
+def generate_fake_signal_data(days=30):
     dates = pd.date_range(start='2023-10-01', periods=days, freq='D')
     vital_signs = pd.DataFrame({
         'Fecha': dates,
