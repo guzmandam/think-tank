@@ -1,19 +1,19 @@
-# 🎈 Blank app template
+# Extractor de datos del paciente
 
-A simple Streamlit app template for you to modify!
+## Descripción
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
+Esta aplicación permite extraer los datos de un paciente de diferentes archivos PDF y mostrar un resumen de los mismos en la pagina con la posibilidad de descargar el historial de medicamentos en formato CSV.
 
-### How to run it on your own machine
+## Como correr la aplicación
 
-1. Install the requirements
+Para correr la aplicación se debe tener instalado Python 3.9 o superior. Luego se deben instalar las dependencias del proyecto con el siguiente comando:
 
-   ```
-   $ pip install -r requirements.txt
-   ```
+```bash
+pip install -r requirements.txt
+```
 
-2. Run the app
+Una vez instaladas las dependencias se puede correr la aplicación con el siguiente comando:
 
-   ```
-   $ streamlit run streamlit_app.py
-   ```
+```bash
+streamlit run ./app/app.py
+```
