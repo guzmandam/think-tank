@@ -6,14 +6,20 @@ Esta aplicación permite extraer los datos de un paciente de diferentes archivos
 
 ## Como correr la aplicación
 
-Para correr la aplicación se debe tener instalado Python 3.9 o superior. Luego se deben instalar las dependencias del proyecto con el siguiente comando:
+Para correr la aplicación se debe tener instalado Docker. Luego se debe ejecutar el siguiente comando en la raíz del proyecto:
 
 ```bash
-pip install -r requirements.txt
+docker build -t think-tank-team1 .
 ```
 
-Una vez instaladas las dependencias se puede correr la aplicación con el siguiente comando:
+Luego se debe ejecutar el siguiente comando:
 
 ```bash
-streamlit run ./app/app.py
+docker run -p 3000:3000 think-tank-team1
+```
+
+Finalmente se debe abrir el navegador y acceder a la siguiente URL:
+
+```bash
+http://localhost:3000/
 ```
