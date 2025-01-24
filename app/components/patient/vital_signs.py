@@ -3,6 +3,8 @@ from utils import resample_data
 import streamlit as st
 from streamlit_extras.chart_container import chart_container
 from pandas import Timestamp as PandasTimestamp
+import altair as alt
+
 
 class PatientVitalSigns:
     def __init__(self, vital_signs):
@@ -80,7 +82,7 @@ class PatientVitalSigns:
             vital_signs_measurements = ("°C", "total", "%", "total", "total", "%")
             container_tabs = ("Grafica 📈", "Datos 📄", "Exportar 📁")
             colors = ["#FF5733", "#33FF57", "#5733FF", "#FF33D1", "#33D1FF", "#D1FF33"]
-
+            domains = [(35, 40), (4000, 11000), (60, 100), (60, 100), (12, 20), (0, 10)]
             
             for i, sign_label in enumerate(vital_signs_labels):
                 st.markdown('<div class="flex-item">', unsafe_allow_html=True)
@@ -93,14 +95,15 @@ class PatientVitalSigns:
                     st.markdown(f"<h3 style='text-align: center;'>{sign_label}</h3>", unsafe_allow_html=True)
                     st.markdown(f"<h4 style='text-align: center;'> Máximo: {sign_max:.2f} {sign_measurement}    -   Mínimo: {sign_min:.2f} {sign_measurement}   -   Promedio: {sign_mean:.2f} {sign_measurement}</h4>", unsafe_allow_html=True)
 
-                    st.line_chart(
-                        filtered_data, 
-                        y=sign_label, 
-                        x="Fecha", 
-                        width=300, 
-                        height=200,
-                        color=colors[i]
-                    )
+                    chart = alt.Chart(
+                        data=filtered_data,
+                        width=300,
+                        height=200).mark_line(color=colors[i]).encode(
+                                x='Fecha',
+                                y=alt.Y(sign_label, scale=alt.Scale(domain=domains[i]))  # Set Y-axis range
+                            )
+                    st.altair_chart(chart, use_container_width=True) 
+                    
                 st.markdown('</div>', unsafe_allow_html=True)
 
             st.markdown('</div>', unsafe_allow_html=True)

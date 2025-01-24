@@ -1,6 +1,7 @@
 from extractor import PatientDataExtractor
 
 from components.patient.personal_info import PatientInfo
+from components.patient.notes import PatientNotes
 from components.patient.diagnosis import PatientDiagnosis
 from components.patient.prescriptions import PatientPrescriptions
 from components.patient.vital_signs import PatientVitalSigns
@@ -39,26 +40,30 @@ if uploaded_files:
     with placeholder.container():
         st.title("Panel del Paciente")
         SkeletonLoading().render()
-        patient.generate_patient_info() # Delay / Simulate loading
+        patient.extract()
 
     with placeholder.container():
         st.title("Panel del Paciente")
 
-        tabs = st.tabs(["Información del Paciente", "Diagnósticos", "Prescripciones", "Signos Vitales"])
+        tabs = st.tabs(["Información del Paciente", "Estancia Hospitalaria y Notas", "Diagnósticos", "Prescripciones", "Signos Vitales"])
 
         with tabs[0]:
             patient_info = PatientInfo(patient)
             patient_info.render()
 
         with tabs[1]:
-            patient_diagnosis = PatientDiagnosis(patient.diagnosis)
-            patient_diagnosis.render()
-
+            patient_prescriptions = PatientNotes(patient.notes)
+            patient_prescriptions.render()
+            
         with tabs[2]:
-            patient_prescriptions = PatientPrescriptions(patient.prescriptions)
+            patient_prescriptions = PatientNotes(patient.prescriptions)
             patient_prescriptions.render()
 
         with tabs[3]:
+            patient_prescriptions = PatientPrescriptions(patient.prescriptions)
+            patient_prescriptions.render()
+
+        with tabs[4]:
             patient_vital_signs = PatientVitalSigns(patient.vital_signs)
             patient_vital_signs.render()
 
